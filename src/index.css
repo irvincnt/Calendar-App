@@ -1,3 +1,12 @@
 body {
   margin: 0;
 }
+
+.calendar-view {
+  height: 100vh;
+}
+
+.rbc-calendar {
+  height: 100%;
+}
+
