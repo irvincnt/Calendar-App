@@ -8,6 +8,7 @@ import { messages } from '../helpers/calendar.messages';
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 import 'moment/locale/es-mx'
 import CalendarEvent from './CalendarEvent';
+import CalendarModal from './CalendarModal';
 
 moment.locale('es-mx')
 const localizer = momentLocalizer(moment)
@@ -26,7 +27,7 @@ const event = [{
 
 const CalendarPage = () => {
   const [currentView, setCurrentView] = useState(localStorage.getItem('lastView' || 'month'));
-  const eventStyleGetter = (event, start, end, isSelected) => {
+  const eventStyleGetter = () => {
     const style = {
       backgroundColor: '#367CF7',
       borderRadius: '0px',
@@ -61,6 +62,7 @@ const CalendarPage = () => {
             event: CalendarEvent
           }}
         />
+        <CalendarModal />
     </div>
    );
 }
