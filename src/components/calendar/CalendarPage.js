@@ -31,7 +31,6 @@ const CalendarPage = () => {
 
   const onSelectEvent = (event) => {
     dispatch(eventSetActive(event))
-    dispatch(uiOpenModal());
   }
 
   const eventStyleGetter = () => {
