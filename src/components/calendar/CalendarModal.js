@@ -6,6 +6,7 @@ import moment from 'moment'
 import DateTimePicker from 'react-datetime-picker';
 import Swal from 'sweetalert2'
 import { uiCloseModal } from '../../actions/ui';
+import { eventAddNew } from '../../actions/events';
 
 const customStyles = {
   content : {
@@ -23,6 +24,12 @@ Modal.setAppElement('#root')
 const now = moment().minutes(0).seconds(0).add(1, 'hours')
 const finish = now.clone().add(3, 'hours')
 
+const initEvent = {
+  title: '',
+  notes: '',
+  start: now.toDate(),
+  end: finish.toDate()
+}
 
 const CalendarModal = () => {
   const dispatch = useDispatch();
@@ -31,17 +38,13 @@ const CalendarModal = () => {
   const [startDate, setStartDate] = useState(now.toDate());
   const [endDate, setEndDate] = useState(finish.toDate());
   const [titleValidate, setTitleValidate] = useState(true);
-  const [formValues, setFormValues] = useState({
-    title: 'Evento',
-    notes: '',
-    start: now.toDate(),
-    end: finish.toDate()
-  });
+  const [formValues, setFormValues] = useState(initEvent);
 
   const {title, notes, start, end} = formValues;
 
   const closeModal = () => {
     dispatch( uiCloseModal() );
+    setFormValues(initEvent)
   }
 
   const handlerStartDateChange = (e) => {
@@ -81,6 +84,11 @@ const CalendarModal = () => {
     if (title.trim().length < 2) {
       return setTitleValidate(false)
     }
+
+    dispatch(eventAddNew({
+      ...formValues,
+      id: new Date().getTime()
+    }))
   }
 
   return (
@@ -122,7 +130,6 @@ const CalendarModal = () => {
               <input 
                   type="text" 
                   className={`form-control ${!titleValidate && 'is-invalid'}`}
-                  placeholder="Título del evento"
                   name="title"
                   autoComplete="off"
                   value={title}
@@ -135,7 +142,6 @@ const CalendarModal = () => {
               <textarea 
                   type="text" 
                   className="form-control"
-                  placeholder="Notas"
                   rows="5"
                   name="notes"
                   value={notes}
