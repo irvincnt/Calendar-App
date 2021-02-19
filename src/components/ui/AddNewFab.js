@@ -8,7 +8,6 @@ const AddNewFab = () => {
   const handleOpenModal = () => {
     dispatch(uiOpenModal());
   }
-    
 
   return (
     <button 
