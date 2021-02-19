@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Navbar from '../ui/Navbar';
 import moment from 'moment'
+import { useDispatch } from 'react-redux';
 
 import { Calendar, momentLocalizer } from 'react-big-calendar'
 import { messages } from '../helpers/calendar.messages';
@@ -9,6 +10,7 @@ import 'react-big-calendar/lib/css/react-big-calendar.css'
 import 'moment/locale/es-mx'
 import CalendarEvent from './CalendarEvent';
 import CalendarModal from './CalendarModal';
+import { uiOpenModal } from '../../actions/ui';
 
 moment.locale('es-mx')
 const localizer = momentLocalizer(moment)
@@ -26,7 +28,14 @@ const event = [{
 }]
 
 const CalendarPage = () => {
+  const dispatch = useDispatch();
+  
   const [currentView, setCurrentView] = useState(localStorage.getItem('lastView' || 'month'));
+
+  const onDoubleClick = (e) => {
+    dispatch(uiOpenModal());
+  }
+
   const eventStyleGetter = () => {
     const style = {
       backgroundColor: '#367CF7',
@@ -56,6 +65,7 @@ const CalendarPage = () => {
           endAccessor="end"
           messages={messages}
           eventPropGetter={eventStyleGetter}
+          onDoubleClickEvent={onDoubleClick}
           onView={changeView}
           view={currentView}
           components={{
