@@ -9,8 +9,8 @@ import './login.css'
 const LoginPage = () => {
 const dispatch = useDispatch()
 const [ formLoginValues, handleLoginInputChange, reset ] = useForm({
-  lEmail: 'irvincnt93@gmail.com',
-  lPassword: '1234566'
+  lEmail: 'irvin@gmail.com',
+  lPassword: '12334535te'
 });
 
 const { lEmail, lPassword } = formLoginValues
