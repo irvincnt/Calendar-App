@@ -1,10 +1,13 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+
+import { startLogin } from '../../actions/auth';
 import { useForm } from '../../hooks/useForm';
 import './login.css'
 
 
 const LoginPage = () => {
-
+const dispatch = useDispatch()
 const [ formLoginValues, handleLoginInputChange, reset ] = useForm({
   lEmail: 'irvincnt93@gmail.com',
   lPassword: '1234566'
@@ -16,7 +19,7 @@ const { lEmail, lPassword } = formLoginValues
 const handleLogin = (e) => {
   e.preventDefault();
 
-  console.log(formLoginValues)
+  dispatch(startLogin(lEmail,lPassword))
 
 
 }
